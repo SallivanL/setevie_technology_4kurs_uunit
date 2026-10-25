@@ -1,0 +1,26 @@
+.dialog {
+  &__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 8px;
+  }
+
+  &__close {
+    position: absolute;
+    right: -56px;
+    top: 0;
+
+    .MuiIconButton-root {
+      width: 44px;
+      height: 44px;
+      background-color: #0000004d;
+
+      &:hover {
+        background-color: #00000066;
+      }
+    }
+  }
+}

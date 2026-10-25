@@ -1,0 +1,22 @@
+.lesson-view {
+  width: 100%;
+  min-height: 100%;
+  margin: 30px 0px;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 7fr) minmax(0, 3fr);
+  gap: 10px;
+
+  &__left-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-bottom: 80px;
+  }
+
+  &__widget-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 24px !important;
+  }
+}

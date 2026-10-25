@@ -1,0 +1,51 @@
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    width: max-content;
+    padding: 6px;
+    border-radius: 6px;
+
+    height: 24px;
+}
+
+.connection-status__connected {
+    background: var(--status-success-background-1-rest);
+}
+
+.connection-status__unconnected {
+    background: var(--status-danger-background-3-rest);
+}
+
+.connection-status__icon svg {
+    font-size: 16px;
+}
+
+.connection-status__connected .connection-status__icon {
+    color: var(--status-success-foreground-1-rest);
+}
+
+.connection-status__unconnected .connection-status__icon {
+    color: var(--status-danger-foreground-3-rest);
+}
+
+.connection-status__label {
+    /*сама типграфия немного выше поэтому margin*/
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+}
+
+.connection-status__icon {
+    margin-bottom: 2px;
+}
+
+
+.connection-status__connected .connection-status__label {
+    color: var(--status-success-foreground-1-rest);
+}
+
+.connection-status__unconnected .connection-status__label {
+    color: var(--status-danger-foreground-3-rest);
+}

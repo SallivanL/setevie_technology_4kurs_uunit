@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@source "../node_modules/@bru-public/oc-ui/**/*.js";
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Raleway";
+    font-weight: 400;
+    src: url(fonts/Raleway-Regular.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Raleway";
+    font-weight: 500;
+    src: url(fonts/Raleway-Medium.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Raleway";
+    font-weight: 600;
+    src: url(fonts/Raleway-SemiBold.ttf) format("truetype");
+}
+
+@font-face {
+    font-family: "Raleway";
+    font-weight: 700;
+    src: url(fonts/Raleway-Bold.ttf) format("truetype");
+}
+
+:root {
+    --neutral-back-2-rest: #f2f5fa;
+    --neutral-back-3-rest: #ebeff5;
+    --neutral-fore-1-rest: #1a1e24;
+    --neutral-fore-2-rest: #40404f;
+    --neutral-fore-4-rest: #515e70;
+    --neutral-stroke-2-rest: #ced6e0;
+    --neutral-background-2-rest: #F2F5FA;
+    --neutral-foreground-4-rest: #515E70;
+    --neutral-stroke-3-rest: #E4E9F0;
+    --generic-fore-2-rest: #004377;
+    --primary: #2589ff;
+    --error: #c50f1f;
+    --success: #0CC44D;
+    --info: #0094ff;
+    --hover: #f2f9ff;
+    --status-success-foreground-1-rest: rgba(14, 112, 14, 1);
+    --status-success-background-1-rest: rgba(241, 250, 241, 1);
+    --status-danger-foreground-1-rest: #B10E1C;
+    --status-danger-foreground-3-rest: rgba(197, 15, 31, 1);
+    --status-danger-background-1-rest: #FDF3F4;
+    --status-danger-background-3-rest: rgba(253, 243, 244, 1);
+    --brand-foreground-1-rest: #FF6C3C;
+}
+
+@theme {
+    --color-neutral-back-2-rest: var(--neutral-back-2-rest);
+    --color-neutral-back-3-rest: var(--neutral-back-3-rest);
+    --color-neutral-fore-1-rest: var(--neutral-fore-1-rest);
+    --color-neutral-fore-2-rest: var(--neutral-fore-2-rest);
+    --color-neutral-fore-4-rest: var(--neutral-fore-4-rest);
+    --color-neutral-stroke-2-rest: var(--neutral-stroke-2-rest);
+    --color-neutral-stroke-3-rest: var(--neutral-stroke-3-rest);
+    --color-neutral-background-2-rest: var(--neutral-background-2-rest);
+    --color-generic-fore-2-rest: var(--generic-fore-2-rest);
+    --color-primary: var(--primary);
+    --color-error: var(--error);
+    --color-info: var(--info);
+    --color-hover: var(--hover);
+}
+
+body {
+    background-color: #F2F5FA;
+    font-family: Raleway, sans-serif;
+    font-variant-numeric: lining-nums;
+    stroke-width: 0;
+    color: var(--color-black);
+}
+
+body::-webkit-scrollbar,
+body *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+@-moz-document url-prefix() {
+    /* MUI Dialog — отступ скроллбара от контента */
+    .MuiDialog-container .MuiPaper-root.MuiDialog-paper > div {
+        scrollbar-width: thin;
+        scrollbar-color: #8d96a2 transparent;
+        padding-right: 8px !important;
+    }
+}
+
+body::-webkit-scrollbar-thumb,
+body *::-webkit-scrollbar-thumb {
+    background: #8d96a2;
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track,
+body *::-webkit-scrollbar-track {
+    background: var(--color-neutral-back-3-rest);
+    border-radius: 10px;
+}
+
+.MuiDialog-container .MuiPaper-root.MuiDialog-paper > div::-webkit-scrollbar-track {
+    margin-left: 16px; /* отступ сверху и снизу от краёв диалога */
+}
+
+.switch--withBg {
+    padding: 8px 16px !important;
+    border-radius: 12px !important;
+}
+
+.switch__button-btn {
+    border-radius: 12px !important;
+    font-weight: 600;
+    height: 48px !important;
+}
+
+.switch-buttons {
+    border-radius: 12px !important;
+}
+
+.switch-buttons__button {
+    padding: 8px !important;
+    border-radius: 8px !important;
+    color: black;
+}
+
+.MuiAutocomplete-popupIndicator {
+    color: #515E70 !important;
+}
+
+.MuiAutocomplete-clearIndicator {
+    color: #515E70 !important;
+}
+
+.oc-btn--size-big {
+    height: 48px;
+}
+
+.oc-typography--type-body1 {
+    color: var(--neutral-fore-4-rest);
+}
+
+.MuiFormHelperText-root {
+    color: var(--neutral-fore-4-rest) !important;
+}
+
+/*.MuiAutocomplete-root:has(.MuiAutocomplete-endAdornment)*/
+/*.MuiInputLabel-root.MuiInputLabel-filled {*/
+/*  left: 32px;*/
+/*}*/
+
+
+.MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+    background: linear-gradient(30deg, #CCD91B, #3BA21C) !important;
+}

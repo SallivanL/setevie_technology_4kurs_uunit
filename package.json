@@ -1,0 +1,17 @@
+{
+  "name": "uunit-setevie-technologii",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/front",
+    "packages/api"
+  ],
+  "scripts": {
+    "start": "concurrently -k -n FRONT,API -c blue,green \"npm run start --workspace=packages/front\" \"npm run start --workspace=packages/api\"",
+    "start:front": "npm run start --workspace=packages/front",
+    "start:api": "npm run start --workspace=packages/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

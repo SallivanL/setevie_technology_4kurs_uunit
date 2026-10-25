@@ -1,0 +1,38 @@
+.tooltip-hint {
+    cursor: pointer;
+}
+
+.tooltip-hint__title {
+    white-space: pre-line;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.tooltip-hint__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tooltip-hint__icon svg {
+    font-size: 22px;
+}
+
+.MuiTooltip-tooltip.MuiTooltip-tooltipArrow {
+    background-color: #1A1E24;
+    border-radius: 12px;
+    color: white;
+    font-size: 14px;
+    font-family: Raleway, sans-serif;
+    padding: 16px;
+    margin-bottom: 9px;
+    max-width: 600px;
+}
+
+.MuiTooltip-arrow {
+    color: #111316 !important;
+}
+
+.MuiTooltip-tooltip {
+    max-width: 500px !important;
+}

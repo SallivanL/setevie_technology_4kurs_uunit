@@ -1,0 +1,1 @@
+export {useGetLesson, useGetLessons} from './words.queries.hooks.js'

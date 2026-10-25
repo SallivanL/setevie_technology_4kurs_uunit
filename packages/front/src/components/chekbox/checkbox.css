@@ -1,0 +1,22 @@
+.unchecked-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #BAC4D1;
+    background-color: #F2F5FA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A0ACBD;
+}
+
+.checked-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #0CC44D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+}

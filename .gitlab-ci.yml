@@ -1,0 +1,81 @@
+
+stages:
+  - build
+  - deploy
+
+workflow:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
+      variables:
+        DEPLOY_ENV: develop
+        APP_ENV: dev
+
+    - if: '$CI_COMMIT_REF_NAME == "alpha"'
+      variables:
+        DEPLOY_ENV: alpha
+        APP_ENV: alpha
+    
+    - if: '$CI_COMMIT_REF_NAME == "beta"'
+      variables:
+        DEPLOY_ENV: beta
+        APP_ENV: beta
+    
+    - if: '$CI_COMMIT_REF_NAME == "stable"'
+      variables:
+        DEPLOY_ENV: stable
+        APP_ENV: stable
+
+include:
+  - project: 'devops/common'
+    file: '/templates/gitlab-ci/vault_ssh_oidc.yml'
+
+build:front:
+  image: $CI_REGISTRY/bru-razrabotka/deployment-containers/nodejs:22.x
+
+  stage: build
+
+  script:
+    - cp config/.$APP_ENV.env ./.env
+    - npm ci --cache .npm --prefer-offline
+    - npm run build 
+    - mv ./dist ./build
+
+  artifacts:
+    paths:
+      - build/
+    expire_in: 15 mins
+    name: "erp-receiving-orders_front_build_artifacts"
+
+deploy:front:
+  stage: deploy
+  image: $CI_REGISTRY/bru-razrabotka/deployment-containers/ansible:vault-1.1
+
+  extends: .vault_oidc_ssh
+  variables:
+    ANSIBLE_CONFIG: $CI_PROJECT_DIR/deploy/ansible.cfg
+    VAULT_JWT_ROLE: "deploy-erp-receiving-orders-role"
+
+  script:
+  - |
+    ansible-playbook ./deploy/deploy.yml \
+      -i ./deploy/inventory.yml \
+      -e "deploy_env=$DEPLOY_ENV" \
+      -e "ansible_ssh_common_args='${ANSIBLE_VAULT_SSH_ARGS}'"
+
+  - rm -f login.json sign_response.json ci_ed25519* *.env.vault || true
+
+  dependencies:
+    - build:front
+
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "develop"'
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "alpha"'
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "beta"'
+      when: on_success
+    - if: '$CI_COMMIT_REF_NAME == "stable"'
+      when: on_success

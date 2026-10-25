@@ -1,0 +1,33 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    margin-top: 40px;
+}
+
+.layout__container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 1100px;
+    padding: 0 24px;
+}
+
+.layout__navbar {
+    width: 100%;
+    padding: 30px 24px;
+}
+
+.layout__loading-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.layout__main-content {
+    margin: 0 auto;
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+}

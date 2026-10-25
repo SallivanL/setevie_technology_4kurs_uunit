@@ -1,0 +1,64 @@
+#app-body {
+  .ui-multiselect {
+    & .MuiInputBase-root {
+      padding-left: 42px;
+      background-color: var(--neutral-background-2-rest) !important;
+    }
+
+    & .MuiFormLabel-root {
+      left: 32px;
+    }
+
+    & .MuiAutocomplete-endAdornment {
+      left: 10px;
+      right: auto !important;
+    }
+  }
+
+  .switch-buttons {
+    padding: 4px;
+    gap: 6px;
+    border: 1px solid var(--neutral-stroke-3-rest);
+    border-radius: 12px;
+    background-color: var(--neutral-background-2-rest);
+  }
+
+  .ui-select {
+    .MuiFormControl-root {
+      .MuiInputBase-root {
+        background-color: var(--neutral-background-2-rest);
+
+        &.Mui-error {
+          background-color: rgb(250, 234, 234);
+        }
+      }
+    }
+  }
+
+  .ui-input {
+    .MuiInputBase-root {
+      background-color: var(--neutral-background-2-rest);
+
+      &.Mui-error {
+        background-color: rgb(250, 234, 234);
+      }
+    }
+  }
+
+  .MuiTableHead-root .MuiTableCell-root {
+    padding: 10px 16px;
+  }
+
+  .MuiTableHead-root .MuiTableCell-root:last-child {
+    padding: 10px 24px
+  }
+
+  .MuiTableRow-root .MuiTableCell-root {
+    padding: 10px 16px;
+  }
+
+  .MuiTableRow-root .MuiTableCell-root:last-child {
+    padding: 10px 24px
+  }
+}
+

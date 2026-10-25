@@ -1,0 +1,32 @@
+.admin {
+  width: 100%;
+  min-height: 100%;
+  margin: 30px 90px;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+  gap: 20px;
+
+  &__left-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__right-wrap {
+    //background: blue !important;
+  }
+
+  &__user {
+    border: 1px solid var(--neutral-stroke-3-rest);
+    background: var(--neutral-back-2-rest);
+    border-radius: 8px;
+    padding: 8px;
+
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      filter: brightness(0.9);
+      cursor: pointer;
+    }
+  }
+}

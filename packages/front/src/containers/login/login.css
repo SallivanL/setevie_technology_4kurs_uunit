@@ -1,0 +1,10 @@
+.login {
+    margin-top: 400px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.login__paper {
+    padding: 24px;
+    border-radius: 32px;
+}
