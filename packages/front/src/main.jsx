@@ -5,8 +5,8 @@ import { StrictMode } from 'react';
 import { DialogsContainer, DialogsProvider } from 'react-dialogs-container';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import { queryClient } from 'packages/front/src/api/query-client.js';
-import { SnackbarProvider } from 'packages/front/src/hooks/use-snackbar.hook.jsx';
+import { queryClient } from '@/api/query-client.js';
+import { SnackbarProvider } from '@/hooks/use-snackbar.hook.jsx';
 import { App } from './App.jsx';
 import './index.css';
 
@@ -231,7 +231,7 @@ const theme = createTheme(
             maxWidth: '370px',
           },
           paperWidthSm: {
-            maxWidth: '420px',
+            maxWidth: '464px',
           },
           paperWidthMd: {
             maxWidth: '700px',

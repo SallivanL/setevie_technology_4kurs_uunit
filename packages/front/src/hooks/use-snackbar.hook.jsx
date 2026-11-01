@@ -1,6 +1,6 @@
 import { Alert, Snackbar } from '@mui/material';
 import { createContext, useCallback, useContext, useState } from 'react';
-import { AlertCheckIcon, AlertErrorIcon, AlertInfoIcon, AlertWarningIcon } from 'packages/front/src/components/icons/index.js';
+import { AlertCheckIcon, AlertErrorIcon, AlertInfoIcon, AlertWarningIcon } from '@/components/icons/index.js';
 
 const SnackbarContext = createContext(null);
 

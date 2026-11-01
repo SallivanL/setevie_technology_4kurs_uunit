@@ -1,4 +1,4 @@
-import { InfoIcon } from 'packages/front/src/components/icons/index.js';
+import { InfoIcon } from '@/components/icons/index.js';
 import { TooltipHintAtom, TooltipHintIconAtom, TooltipHintTitleAtom } from './tooltip-hint.atoms.jsx';
 import './tooltip-hint.css';
 

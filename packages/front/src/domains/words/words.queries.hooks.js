@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { wordsKeys } from 'packages/front/src/domains/shared/index.js';
+import { wordsKeys } from '@/domains/shared/index.js';
 import { words } from './words.mock-data.helper.js';
 
 export const useGetWords = () =>

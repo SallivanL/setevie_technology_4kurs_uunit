@@ -1,8 +1,8 @@
 import { useDialogs } from 'react-dialogs-container';
 import { Button, Space, Typography } from '@bru-public/oc-ui';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useGetWords } from 'packages/front/src/domains/words/words.queries.hooks.js';
-import { useDeleteWordsWithCache } from 'packages/front/src/domains/words/words.hook.js';
+import { useGetWords } from '@/domains/words/words.queries.hooks.js';
+import { useDeleteWordsWithCache } from '@/domains/words/words.hook.js';
 import { AddWordDialog } from './dialog/index.js';
 
 import {
@@ -37,7 +37,7 @@ export const Words = () => {
         <Typography.Title1>Словарь</Typography.Title1>
         <WordsItemsWrapperAtom>
           {words.map((word) => (
-            <div className="flex items-stretch justify-center gap-4">
+            <div className="flex items-stretch justify-center gap-2">
               <WordItemWrapperAtom key={word.id}>
                 <Typography.Body1Stronger>{word.english}</Typography.Body1Stronger>
                 <Typography.Body1Stronger>{word.russian}</Typography.Body1Stronger>

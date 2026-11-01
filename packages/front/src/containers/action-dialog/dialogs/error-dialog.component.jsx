@@ -1,4 +1,4 @@
-import { WarningIcon } from 'packages/front/src/components/icons/index.js';
+import { WarningIcon } from '@/components/icons/index.js';
 import { ActionDialogComponent } from '../action-dialog.component.jsx';
 
 export const ErrorDialog = (props) => {

@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { apiService } from 'packages/front/src/api/api.service.js';
+import { apiService } from '@/api/api.service.js';
 
 export const useCreateWords = (options = {}) =>
   useMutation({

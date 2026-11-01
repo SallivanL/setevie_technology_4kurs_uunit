@@ -1,4 +1,4 @@
-import { DeleteIcon, TrashIcon } from 'packages/front/src/components/icons/index.js';
+import { DeleteIcon, TrashIcon } from '@/components/icons/index.js';
 import { ActionDialogComponent } from '../action-dialog.component.jsx';
 
 export const DeleteDialog = (props) => {

@@ -1,6 +1,6 @@
-import { queryClient } from 'packages/front/src/api/query-client.js';
-import { wordsKeys } from 'packages/front/src/domains/shared/index.js';
-import { useCreateWords, useDeleteWords, useEditWords } from 'packages/front/src/domains/words/words.mutations.hook.js';
+import { queryClient } from '@/api/query-client.js';
+import { wordsKeys } from '@/domains/shared/index.js';
+import { useCreateWords, useDeleteWords, useEditWords } from '@/domains/words/words.mutations.hook.js';
 
 export const useCreateWordsWithCache = () => {
   const { mutateAsync, isLoading } = useCreateWords({

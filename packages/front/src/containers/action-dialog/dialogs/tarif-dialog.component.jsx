@@ -1,5 +1,5 @@
 import { useDialogs } from 'react-dialogs-container';
-import { InfoSquareIcon } from 'packages/front/src/components/icons/index.js';
+import { InfoSquareIcon } from '@/components/icons/index.js';
 import { useGetPhoneNumber } from '@/domains/feedback-form';
 import { PhoneCallDialog, PhoneInputDialog } from '../../phone-dialog/index.js';
 import { ActionDialogComponent } from '../action-dialog.component.jsx';

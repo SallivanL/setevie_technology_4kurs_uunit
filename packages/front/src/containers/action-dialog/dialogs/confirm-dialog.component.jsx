@@ -1,4 +1,4 @@
-import { InfoSquareIcon } from 'packages/front/src/components/icons/index.js';
+import { InfoSquareIcon } from '@/components/icons/index.js';
 import { ActionDialogComponent } from '../action-dialog.component.jsx';
 
 export const ConfirmDialog = (props) => {

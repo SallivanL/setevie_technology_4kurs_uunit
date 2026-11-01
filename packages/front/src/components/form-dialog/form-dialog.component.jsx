@@ -1,7 +1,7 @@
 import { Dialog as BRUDialog } from '@bru-public/oc-ui';
 import { IconButton } from '@mui/material';
 import _ from 'lodash';
-import { CloseIcon } from 'packages/front/src/components/icons/close.icon.jsx';
+import { CloseIcon } from '@/components/icons/close.icon.jsx';
 import './form-dialog.css';
 
 const dialogStyles = {

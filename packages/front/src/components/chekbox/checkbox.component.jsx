@@ -1,5 +1,5 @@
 import { Checkbox as KitCheckbox } from '@bru-public/oc-ui';
-import { CheckboxIcon } from 'packages/front/src/components/icons/index.js';
+import { CheckboxIcon } from '@/components/icons/index.js';
 import './checkbox.css';
 
 const UncheckedIcon = () => (

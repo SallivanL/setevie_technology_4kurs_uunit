@@ -1,6 +1,6 @@
 import { Button, Space } from '@bru-public/oc-ui';
 import _ from 'lodash';
-import { Dialog } from 'packages/front/src/components/dialog/index.js';
+import { Dialog } from '@/components/dialog/index.js';
 import './action-dailog.scss';
 import {
   ActionDialogActionsAtom,

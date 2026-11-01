@@ -1,5 +1,5 @@
-import { Dialog } from 'packages/front/src/components/dialog/index.js';
-import { Form } from 'packages/front/src/components/form/index.js';
+import { Dialog } from '@/components/dialog/index.js';
+import { Form } from '@/components/form/index.js';
 import { Space, Typography } from '@bru-public/oc-ui';
 
 export const AddWidgetDialog = ({ closeDialog = () => {}, onAddWidget = () => {} }) => {

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { lessonsKeys } from 'packages/front/src/domains/shared/index.js';
+import { lessonsKeys } from '@/domains/shared/index.js';
 import { lesson, lessons } from './lesson.mock-data.helper.js';
 
 export const useGetLesson = (lessonId) =>

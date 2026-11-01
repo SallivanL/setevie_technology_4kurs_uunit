@@ -1,6 +1,6 @@
 import { bem, withBem } from '@bru-public/oc-utils';
 import { Paper } from '@mui/material';
-import { Form } from 'packages/front/src/components/form/index.js';
+import { Form } from '@/components/form/index.js';
 
 const lessonViewBem = 'lesson-view';
 

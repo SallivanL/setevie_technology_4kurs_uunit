@@ -1,7 +1,7 @@
 import './list-lessons.scss';
 import { ListLessonItemAtom, ListLessonsAtom, ListLessonsPaperAtom } from './list-lessons.atoms.jsx';
 import { useNavigate } from 'react-router-dom';
-import { useGetLessons } from 'packages/front/src/domains/lesson/index.js';
+import { useGetLessons } from '@/domains/lesson/index.js';
 
 export const ListLessons = () => {
   const { data: lessons = [] } = useGetLessons();

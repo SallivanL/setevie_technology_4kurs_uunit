@@ -1,8 +1,8 @@
 import { Space, Typography } from '@bru-public/oc-ui';
-import { Form } from 'packages/front/src/components/form/index.js';
+import { Form } from '@/components/form/index.js';
 import './admin.scss';
 import { AdminAtom, AdminLeftWrapperAtom, AdminRightWrapperAtom, AdminUserAtom } from './admin.atoms.jsx';
-import { InfoBox } from 'packages/front/src/components/info-box/index.js';
+import { InfoBox } from '@/components/info-box/index.js';
 
 const users = [
   { id: 1, name: 'user1' },

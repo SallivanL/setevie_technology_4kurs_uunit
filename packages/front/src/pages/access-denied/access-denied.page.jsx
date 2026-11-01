@@ -1,5 +1,5 @@
 import { Space } from '@bru-public/oc-ui';
-import { LockIcon } from 'packages/front/src/components/icons/index.js';
+import { LockIcon } from '@/components/icons/index.js';
 import {
   AccessDenied,
   AccessDeniedIconAtom,

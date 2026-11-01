@@ -1,7 +1,6 @@
 .login {
-    margin-top: 400px;
-    width: 100%;
-    max-width: 420px;
+    margin-top: 20%;
+    width: calc(50% - 8px);
 }
 
 .login__paper {

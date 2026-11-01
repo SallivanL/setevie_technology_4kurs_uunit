@@ -1,7 +1,7 @@
 import { Space, Typography } from '@bru-public/oc-ui';
 import { LoginAtom, LoginPaper } from './login.atoms.jsx';
 import './login.css';
-import { Form } from 'packages/front/src/components/form/index.js';
+import { Form } from '@/components/form/index.js';
 
 export const Login = () => {
   return (
