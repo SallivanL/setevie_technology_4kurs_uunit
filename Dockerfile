@@ -7,7 +7,7 @@ COPY packages/api/package.json ./packages/api/package.json
 COPY packages/front/package.json ./packages/front/package.json
 RUN npm ci --omit=dev --workspace=packages/api --include-workspace-root=false
 
-COPY packages/api/knexfile.cjs ./packages/api/knexfile.cjs
+COPY packages/api/knexfile.js ./packages/api/knexfile.js
 COPY packages/api/src ./packages/api/src
 COPY packages/api/migrations ./packages/api/migrations
 

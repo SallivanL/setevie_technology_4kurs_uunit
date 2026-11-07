@@ -6,6 +6,7 @@ import jsconfigPaths from 'vite-jsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
+  envDir: fileURLToPath(new URL('../../', import.meta.url)),
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

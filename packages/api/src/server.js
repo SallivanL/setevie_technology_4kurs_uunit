@@ -2,9 +2,11 @@ const path = require('node:path');
 const dotenv = require('dotenv');
 const express = require('express');
 const cors = require('cors');
-const knex = require('./db/knex');
+const cookieParser = require('cookie-parser');
+const knex = require('../knexfile').getKnex();
+const { errorMiddleware } = require('./utils/errors');
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') });
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
@@ -12,8 +14,15 @@ const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:5173')
   .split(',')
   .map((origin) => origin.trim());
 
-app.use(cors({ origin: allowedOrigins }));
+app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
+app.use(cookieParser());
+
+app.use('/auth', require('./domains/auth/auth.routes'));
+app.use('/users', require('./domains/user/user.routes'));
+app.use('/tariffs', require('./domains/tariff/tariff.routes'));
+app.use('/lessons', require('./domains/lesson/lesson.routes'));
+app.use('/words', require('./domains/words/words.routes'));
 
 app.get('/health/live', (_request, response) => {
   response.json({ status: 'ok' });
@@ -27,6 +36,9 @@ app.get('/health/ready', async (_request, response) => {
     response.status(503).json({ status: 'error', database: 'unavailable' });
   }
 });
+
+app.use((_request, response) => response.status(404).json({ error: 'Маршрут не найден' }));
+app.use(errorMiddleware);
 
 let server;
 

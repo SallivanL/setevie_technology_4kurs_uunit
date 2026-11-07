@@ -2,12 +2,22 @@ import { Space, Typography } from '@bru-public/oc-ui';
 import { LoginAtom, LoginPaper } from './login.atoms.jsx';
 import './login.css';
 import { Form } from '@/components/form/index.js';
+import { apiService } from '@/api/api.service.js';
+import { useNavigate } from 'react-router-dom';
 
 export const Login = () => {
+  const navigate = useNavigate();
+
+  const handleLogin = async ({ email_address: emailAddress, password }) => {
+    const result = await apiService.post('/auth/login', { email_address: emailAddress, password });
+    apiService.setAccessToken(result.access_token);
+    navigate('/list-lesson');
+  };
+
   return (
     <LoginAtom>
       <LoginPaper>
-        <Form key="form-key">
+        <Form key="form-key" onSubmit={handleLogin}>
           <Space.Y gap={4}>
             <Space.Y gap={3}>
               <Form.Input name="email_address" required type={'email'} label="E-mail" placeholder="email@yandex.ru" />

@@ -1,1 +1,1 @@
-export {useGetLesson, useGetLessons} from './words.queries.hooks.js'
+export { useGetWords } from './words.queries.hooks.js';

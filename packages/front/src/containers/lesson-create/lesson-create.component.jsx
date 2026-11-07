@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Form } from '@/components/form/index.js';
 import { Button, Space, Typography } from '@bru-public/oc-ui';
 import { AddWidgetDialog } from './dialog/index.js';
+import { useCreateLesson } from '@/domains/lesson/index.js';
 import './lesson-create.scss';
 
 import {
@@ -20,6 +21,12 @@ import {
 export const LessonCreate = () => {
   const navigate = useNavigate();
   const { pushDialog } = useDialogs();
+  const { mutateAsync: createLessonAsync, isPending } = useCreateLesson();
+
+  const handleCreateLesson = async (values) => {
+    const lesson = await createLessonAsync(values);
+    navigate(`/view-lesson/${lesson.id}`);
+  };
 
   const initialFormValues = useMemo(
     () => ({
@@ -63,7 +70,7 @@ export const LessonCreate = () => {
   };
 
   return (
-    <LessonCreateFormAtom initialValues={initialFormValues}>
+    <LessonCreateFormAtom initialValues={initialFormValues} onSubmit={handleCreateLesson}>
       <FormSpy subscription={{ values: true }}>
         {({ values, form }) => {
           const sections = values?.data ?? [];
@@ -105,6 +112,7 @@ export const LessonCreate = () => {
             <>
               <LessonCreateLeftWrapperAtom>
                 <Button label="Назад" onClick={() => navigate(-1)} />
+                <Form.Submit type="primary" disabled={isPending} label={isPending ? 'Сохранение…' : 'Сохранить урок'} />
               </LessonCreateLeftWrapperAtom>
 
               <LessonCreateCenterWrapperAtom>

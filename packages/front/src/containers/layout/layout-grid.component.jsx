@@ -11,10 +11,9 @@ const GRID_GAP = 8;
 
 /**
  * Визуальная 12-колоночная сетка для LayoutContainerAtom.
- * Компонент должен быть непосредственным дочерним элементом LayoutContainerAtom.
  */
 export const LayoutGrid = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const gridRef = useRef(null);
 
   useLayoutEffect(() => {

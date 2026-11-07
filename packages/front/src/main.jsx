@@ -231,7 +231,7 @@ const theme = createTheme(
             maxWidth: '370px',
           },
           paperWidthSm: {
-            maxWidth: '464px',
+            maxWidth: '378px',
           },
           paperWidthMd: {
             maxWidth: '700px',

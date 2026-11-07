@@ -14,8 +14,8 @@ import { Paper } from '@mui/material';
 export const LessonView = ({ lesson = [], lessonName }) => {
   const navigate = useNavigate();
 
-  const [selectedSection, setSelectedSection] = useState(1);
-  const currentSection = lesson?.find((section) => section.id === selectedSection);
+  const [selectedSection, setSelectedSection] = useState(null);
+  const currentSection = lesson?.find((section) => section.id === selectedSection) ?? lesson?.[0];
 
   return (
     <LessonViewFormAtom>

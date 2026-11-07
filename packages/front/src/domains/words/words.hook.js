@@ -3,7 +3,7 @@ import { wordsKeys } from '@/domains/shared/index.js';
 import { useCreateWords, useDeleteWords, useEditWords } from '@/domains/words/words.mutations.hook.js';
 
 export const useCreateWordsWithCache = () => {
-  const { mutateAsync, isLoading } = useCreateWords({
+  const { mutateAsync, isPending } = useCreateWords({
     onSuccess: (response) => {
       const createdWord = response;
 
@@ -19,12 +19,12 @@ export const useCreateWordsWithCache = () => {
 
   return {
     createWordAsync: mutateAsync,
-    isLoading,
+    isLoading: isPending,
   };
 };
 
 export const useUpdateWordsWithCache = (wordId) => {
-  const { mutateAsync, isLoading } = useEditWords(wordId, {
+  const { mutateAsync, isPending } = useEditWords(wordId, {
     onSuccess: (response) => {
       const updatedWords = response;
 
@@ -42,12 +42,12 @@ export const useUpdateWordsWithCache = (wordId) => {
 
   return {
     updateWordsAsync: mutateAsync,
-    isLoading,
+    isLoading: isPending,
   };
 };
 
 export const useDeleteWordsWithCache = () => {
-  const { mutateAsync, isLoading } = useDeleteWords({
+  const { mutateAsync, isPending } = useDeleteWords({
     onMutate: async (wordId) => {
       await queryClient.cancelQueries({
         queryKey: wordsKeys.words,
@@ -66,8 +66,8 @@ export const useDeleteWordsWithCache = () => {
     },
 
     onError: (_, __, context) => {
-      if (context?.previousWordss) {
-        queryClient.setQueryData(wordsKeys.words, context.previousWordss);
+      if (context?.previousWords) {
+        queryClient.setQueryData(wordsKeys.words, context.previousWords);
       }
     },
 
@@ -80,6 +80,6 @@ export const useDeleteWordsWithCache = () => {
 
   return {
     deleteWordsAsync: mutateAsync,
-    isLoading,
+    isLoading: isPending,
   };
 };

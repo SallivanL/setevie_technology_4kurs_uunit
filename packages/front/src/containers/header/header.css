@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 16px;
+    padding: 10px;
     gap: 16px;
     border-radius: 32px;
 }

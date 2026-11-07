@@ -1,19 +1,16 @@
 # uunit-setevie-technologii
 
-## План развития бэкенда
+## API
 
-1. **Основа (сделана):** Node.js API в `packages/api`, подключение Knex и Objection к PostgreSQL, Docker Compose для базы, health-check-и.
-2. **Схема данных:** когда будут определены сущности проекта, добавить Knex-миграции и модели Objection.
-3. **Ручки API:** реализовать маршруты и проверки входных данных для нужных сценариев.
-4. **Подключение фронтенда:** настроить адрес API для Vite и связать страницы с ручками.
+Бэкенд находится в `packages/api`: Express, PostgreSQL через Knex, модели и связи через Objection. В API реализованы пользователи с ролями учитель/ученик/админ (`type` 1/2/3), тарифы, назначения учеников учителям, уроки с секциями и виджетами, словарь, а также access/refresh авторизация.
 
-Сейчас прикладных таблиц и бизнес-ручек нет: это чистая основа, которая уже подключается к PostgreSQL.
+Маршруты и конфигурация описаны в [packages/api/README.md](packages/api/README.md). Фронтенд использует API для входа, чтения уроков и чтения/изменения словаря.
 
 ## Локальный запуск
 
 Нужны Node.js, npm и запущенный Docker Desktop (или Docker Engine с Compose). В Docker работает только PostgreSQL; API и фронтенд запускаются локально.
 
-1. Скопируйте `.env.example` в `.env`. При необходимости измените параметры базы. Значения из примера подходят только для локальной разработки.
+1. Скопируйте `.env.example` в `.env`. При необходимости измените параметры базы и задайте случайные JWT secrets. Значения из примера подходят только для локальной разработки.
 2. Запустите PostgreSQL из корня репозитория:
 
    ```sh
@@ -22,10 +19,19 @@
 
    Compose запустит только контейнер `postgres` и сохранит данные в volume `postgres_data`.
 
-3. Установите npm-зависимости, если ещё не устанавливали, и запустите API вместе с фронтендом:
+3. Установите npm-зависимости, если ещё не устанавливали, примените миграции и создайте первого администратора:
 
    ```sh
    npm install
+   cd packages/api
+   knex migrate:latest
+   cd ../..
+   ADMIN_EMAIL=admin@example.com ADMIN_PASSWORD='use-a-long-password' npm run create-admin
+   ```
+
+4. Запустите API вместе с фронтендом:
+
+   ```sh
    npm run start
    ```
 
@@ -65,9 +71,13 @@ docker compose down -v
 - API при старте проверяет соединение с базой. `/health/ready` также проверяет PostgreSQL.
 - Порт PostgreSQL задаётся через `DB_PORT` (по умолчанию `5432`); порт API задаётся через `PORT` (по умолчанию `3000`).
 
-Миграции можно добавлять в `packages/api/migrations`, затем выполнять команду из корня:
+Миграции находятся в `packages/api/migrations`. Перейдите в папку миграций или `packages/api` и используйте Knex CLI:
 
 ```sh
-npm run migrate:latest --workspace=packages/api
+cd packages/api/migrations
+knex migrate:make add_feature_name
+knex migrate:list
+knex migrate:latest
+knex migrate:rollback
 ```
 

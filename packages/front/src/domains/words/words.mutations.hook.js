@@ -4,8 +4,7 @@ import { apiService } from '@/api/api.service.js';
 export const useCreateWords = (options = {}) =>
   useMutation({
     mutationFn: async (data) => {
-      // return apiService.post('/words', data);
-      return Promise.resolve({ id: 12, ...data });
+      return apiService.post('/words', data);
     },
     ...options,
   });

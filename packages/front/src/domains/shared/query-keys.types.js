@@ -5,5 +5,7 @@ export const lessonsKeys = {
 
 export const wordsKeys = {
   words: ['words'],
+  teachers: ['word-teachers'],
+  students: ['word-students'],
   word: (id) => ['word', Number(id)],
 };

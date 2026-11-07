@@ -9,7 +9,10 @@
   "scripts": {
     "start": "concurrently -k -n FRONT,API -c blue,green \"npm run start --workspace=packages/front\" \"npm run start --workspace=packages/api\"",
     "start:front": "npm run start --workspace=packages/front",
-    "start:api": "npm run start --workspace=packages/api"
+    "start:api": "npm run start --workspace=packages/api",
+    "create-admin": "npm run create-admin --workspace=packages/api",
+    "create-teacher": "npm run create-teacher --workspace=packages/api",
+    "create-student": "npm run create-student --workspace=packages/api"
   },
   "devDependencies": {
     "concurrently": "^9.2.1"

@@ -23,9 +23,10 @@ async function resetTokens() {
 class ApiBackService {
   constructor() {
     this.accessToken = sessionStorage.getItem('access');
+    this.accessTokenVersion = 0;
     this.refreshTokenPromise = null;
-    this.http = axios.create({ baseURL: BASE_URL });
-    this.initialToken = this.#refreshToken(); // получаем токен сразу при старте
+    this.http = axios.create({ baseURL: BASE_URL, withCredentials: true });
+    this.initialToken = this.#refreshToken().catch(() => null); // пользователь может открыть приложение без сессии
     this.#setupHttp();
   }
 
@@ -40,6 +41,7 @@ class ApiBackService {
   }
 
   #setAccessToken(token) {
+    this.accessTokenVersion += 1;
     this.accessToken = token;
     if (token) {
       sessionStorage.setItem('access', token);
@@ -50,12 +52,16 @@ class ApiBackService {
 
   async #refreshToken() {
     if (!this.refreshTokenPromise) {
+      const tokenVersion = this.accessTokenVersion;
       this.refreshTokenPromise = resetTokens()
         .then((token) => {
           this.#setAccessToken(token);
           return token;
         })
         .catch((error) => {
+          if (error?.response?.status === 401) {
+            if (this.accessTokenVersion === tokenVersion) this.#setAccessToken(null);
+          }
           if (error?.response?.status === 403) {
             this.#setAccessToken(null);
             redirectToAccessDenied();
@@ -72,6 +78,7 @@ class ApiBackService {
 
   #setupHttp() {
     this.http.interceptors.request.use(async (config) => {
+      if (config.url?.includes('/auth/login')) return config;
       await this.initialToken; // ждём начальный токен перед каждым запросом
       return this.#configAttachAuth(config);
     });
@@ -83,6 +90,10 @@ class ApiBackService {
         return Promise.reject(error); // NETWORK ERROR
       }
 
+      if (originalRequest.url?.includes('/auth/login')) {
+        return Promise.reject(error);
+      }
+
       if (error.response.status === 403) {
         redirectToAccessDenied();
         return Promise.reject(error);
@@ -90,17 +101,15 @@ class ApiBackService {
 
       if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true;
+        const tokenVersion = this.accessTokenVersion;
 
         try {
           const newToken = await this.#refreshToken();
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
           return this.http(originalRequest);
         } catch {
-          this.#setAccessToken(null);
-
-          if (import.meta.env.VITE_CONTOUR !== 'local') {
-            window.location = `${BASE_URL}logout`;
-          }
+          if (this.accessTokenVersion === tokenVersion) this.#setAccessToken(null);
+          if (window.location.pathname !== '/login') window.location.assign('/login');
         }
       }
 
@@ -131,6 +140,10 @@ class ApiBackService {
 
   async patch(...args) {
     return this.http.patch(...args).then(fp.get('data'));
+  }
+
+  setAccessToken(token) {
+    this.#setAccessToken(token);
   }
 }
 
