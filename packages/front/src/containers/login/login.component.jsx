@@ -3,15 +3,21 @@ import { LoginAtom, LoginPaper } from './login.atoms.jsx';
 import './login.css';
 import { Form } from '@/components/form/index.js';
 import { apiService } from '@/api/api.service.js';
+import { setUserData } from '@/store/index.js';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useUserType } from '@/containers/user/index.js';
 
 export const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async ({ email_address: emailAddress, password }) => {
     const result = await apiService.post('/auth/login', { email_address: emailAddress, password });
     apiService.setAccessToken(result.access_token);
-    navigate('/list-lesson');
+    await dispatch(setUserData(result.user));
+
+    // navigate('/list-lesson');
   };
 
   return (

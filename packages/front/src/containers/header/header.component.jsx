@@ -4,6 +4,7 @@ import { HeaderAtom, HeaderLogoutAtom, HeaderNavItemsAtom, HeaderPaper, HeaderWr
 import './header.css';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useUserType } from '@/containers/user/index.js';
 
 const navigationRoutes = [
   { route: '/list-lesson', label: 'Уроки' },
@@ -12,17 +13,22 @@ const navigationRoutes = [
 ];
 
 export const Header = () => {
+  const userType = useUserType();
+
   return (
     <HeaderAtom>
       <HeaderPaper>
         <HeaderWrapAtom>
-          <HeaderNavItemsAtom>
-            {navigationRoutes.map((item) => (
-              <Link key={item.route} to={item.route}>
-                <Button label={item.label} />
-              </Link>
-            ))}
-          </HeaderNavItemsAtom>
+          {userType && (
+            <HeaderNavItemsAtom>
+              {navigationRoutes.map((item) => (
+                <Link key={item.route} to={item.route}>
+                  <Button label={item.label} />
+                </Link>
+              ))}
+            </HeaderNavItemsAtom>
+          )}
+
           <Link to="/login">
             <HeaderLogoutAtom>
               <LogoutIcon />

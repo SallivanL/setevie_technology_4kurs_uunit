@@ -1,11 +1,13 @@
 import { ruRU } from '@mui/material/locale';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
 import { StrictMode } from 'react';
 import { DialogsContainer, DialogsProvider } from 'react-dialogs-container';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import { queryClient } from '@/api/query-client.js';
+import { store } from '@/store/index.js';
 import { SnackbarProvider } from '@/hooks/use-snackbar.hook.jsx';
 import { App } from './App.jsx';
 import './index.css';
@@ -315,16 +317,18 @@ const theme = createTheme(
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <DialogsProvider>
-        <QueryClientProvider client={queryClient}>
-          <SnackbarProvider>
-            <BrowserRouter>
-              <App />
-              <DialogsContainer />
-            </BrowserRouter>
-          </SnackbarProvider>
-        </QueryClientProvider>
-      </DialogsProvider>
+      <Provider store={store}>
+        <DialogsProvider>
+          <QueryClientProvider client={queryClient}>
+            <SnackbarProvider>
+              <BrowserRouter>
+                <App />
+                <DialogsContainer />
+              </BrowserRouter>
+            </SnackbarProvider>
+          </QueryClientProvider>
+        </DialogsProvider>
+      </Provider>
     </ThemeProvider>
   </StrictMode>
 );

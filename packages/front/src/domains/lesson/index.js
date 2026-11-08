@@ -1,2 +1,2 @@
-export { useGetLesson, useGetLessons } from './synchronization.queries.hooks.js';
-export { useCreateLesson } from './synchronization.mutations.hook.js';
+export { useGetLesson, useGetLessons } from './lesson.queries.hooks.js';
+export { useCreateLesson } from './lesson.mutations.hook.js';
