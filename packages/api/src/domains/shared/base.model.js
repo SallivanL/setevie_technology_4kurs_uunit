@@ -2,4 +2,4 @@ const { Model } = require('objection');
 
 class BaseModel extends Model {}
 
-module.exports = BaseModel;
+exports.BaseModel = BaseModel;

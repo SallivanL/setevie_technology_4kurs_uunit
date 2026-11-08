@@ -1,5 +1,5 @@
-const WordModel = require('../../models/word.model');
-const UserModel = require('../../models/user.model');
+const { WordModel } = require('./word.model');
+const { UserModel } = require('../user/user.model');
 const knex = require('../../../knexfile').getKnex();
 const { badRequest, forbidden, notFound } = require('../../utils/errors');
 const { roles } = require('../../utils/auth');

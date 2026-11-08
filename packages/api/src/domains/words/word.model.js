@@ -1,5 +1,5 @@
 const { Model } = require('objection');
-const BaseModel = require('./base.model');
+const { BaseModel } = require('../shared/base.model');
 
 class WordModel extends BaseModel {
   static get tableName() { return 'words'; }
@@ -18,18 +18,20 @@ class WordModel extends BaseModel {
   }
 
   static get relationMappings() {
+    const { UserModel } = require('../user/user.model');
+
     return {
       teacher: {
         relation: Model.BelongsToOneRelation,
-        modelClass: require('./user.model'),
+        modelClass: UserModel,
         join: { from: 'words.teacher_id', to: 'users.id' },
       },
       student: {
         relation: Model.BelongsToOneRelation,
-        modelClass: require('./user.model'),
+        modelClass: UserModel,
         join: { from: 'words.student_id', to: 'users.id' },
       },
     };
   }
 }
-module.exports = WordModel;
+exports.WordModel = WordModel;

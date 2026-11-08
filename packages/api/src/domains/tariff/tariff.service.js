@@ -1,4 +1,4 @@
-const TariffModel = require('../../models/tariff.model');
+const { TariffModel } = require('./tariff.model');
 const { badRequest, notFound } = require('../../utils/errors');
 
 class TariffService {

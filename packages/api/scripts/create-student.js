@@ -1,6 +1,6 @@
 const knex = require('../knexfile').getKnex();
 const { UserService } = require('../src/domains/user/user.service');
-const UserModel = require('../src/models/user.model');
+const { UserModel } = require('../src/domains/user/user.model');
 
 async function main() {
   const userService = new UserService();

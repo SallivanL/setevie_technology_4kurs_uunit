@@ -2,7 +2,7 @@ const path = require('node:path');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
 const knex = require('../knexfile').getKnex();
-const UserModel = require('../src/models/user.model');
+const { UserModel } = require('../src/domains/user/user.model');
 const { normalizeEmail, validatePassword } = require('../src/domains/user/user.service');
 
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') });

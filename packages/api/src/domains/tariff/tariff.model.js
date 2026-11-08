@@ -1,5 +1,5 @@
 const { Model } = require('objection');
-const BaseModel = require('./base.model');
+const { BaseModel } = require('../shared/base.model');
 
 class TariffModel extends BaseModel {
   static get tableName() { return 'tariffs'; }
@@ -13,13 +13,15 @@ class TariffModel extends BaseModel {
     };
   }
   static get relationMappings() {
+    const { UserModel } = require('../user/user.model');
+
     return {
       users: {
         relation: Model.HasManyRelation,
-        modelClass: require('./user.model'),
+        modelClass: UserModel,
         join: { from: 'tariffs.id', to: 'users.tariff_id' },
       },
     };
   }
 }
-module.exports = TariffModel;
+exports.TariffModel = TariffModel;

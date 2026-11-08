@@ -1,5 +1,5 @@
 const { Model } = require('objection');
-const BaseModel = require('./base.model');
+const { BaseModel } = require('../shared/base.model');
 
 class UserModel extends BaseModel {
   static get tableName() { return 'users'; }
@@ -21,30 +21,35 @@ class UserModel extends BaseModel {
   }
 
   static get relationMappings() {
+    const { TariffModel } = require('../tariff/tariff.model');
+    const { LessonModel } = require('../lesson/lesson.model');
+    const { WordModel } = require('../words/word.model');
+    const { RefreshSessionModel } = require('../auth/refresh-session.model');
+
     return {
       tariff: {
         relation: Model.BelongsToOneRelation,
-        modelClass: require('./tariff.model'),
+        modelClass: TariffModel,
         join: { from: 'users.tariff_id', to: 'tariffs.id' },
       },
       lessons: {
         relation: Model.HasManyRelation,
-        modelClass: require('./lesson.model'),
+        modelClass: LessonModel,
         join: { from: 'users.id', to: 'lessons.teacher_id' },
       },
       words: {
         relation: Model.HasManyRelation,
-        modelClass: require('./word.model'),
+        modelClass: WordModel,
         join: { from: 'users.id', to: 'words.teacher_id' },
       },
       studentWords: {
         relation: Model.HasManyRelation,
-        modelClass: require('./word.model'),
+        modelClass: WordModel,
         join: { from: 'users.id', to: 'words.student_id' },
       },
       refreshSessions: {
         relation: Model.HasManyRelation,
-        modelClass: require('./refresh-session.model'),
+        modelClass: RefreshSessionModel,
         join: { from: 'users.id', to: 'refresh_sessions.user_id' },
       },
       students: {
@@ -69,4 +74,4 @@ class UserModel extends BaseModel {
   }
 }
 
-module.exports = UserModel;
+exports.UserModel = UserModel;
