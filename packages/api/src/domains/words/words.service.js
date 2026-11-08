@@ -31,28 +31,30 @@ class WordsService {
     return [];
   }
 
-  async list(user) {
+  async list(user, requestedStudentId) {
     const selection = ['id', 'teacher_id', 'student_id', 'english', 'russian'];
-    if (user.type === roles.teacher) return WordModel.query().select(selection).where({ teacher_id: user.userId }).orderBy('id');
-    if (user.type === roles.admin) return WordModel.query().select(selection).orderBy('id');
-    const teacherRows = await knex('teacher_students').select('teacher_id').where({ student_id: user.userId });
-    const teacherIds = teacherRows.map((row) => row.teacher_id);
-    if (teacherIds.length === 0) return [];
-    return WordModel.query()
-      .select(selection)
-      .whereIn('teacher_id', teacherIds)
-      .where((query) => query.whereNull('student_id').orWhere('student_id', user.userId))
-      .orderBy('id');
+    const studentId = optionalId(requestedStudentId, 'student_id');
+    if (user.type === roles.admin) throw forbidden();
+    if (user.type === roles.teacher) {
+      await this.assertStudentAssigned(user.userId, studentId);
+      return WordModel.query().select(selection).where({ teacher_id: user.userId, student_id: studentId }).orderBy('id');
+    }
+    if (user.type === roles.student) {
+      if (studentId !== user.userId) throw forbidden();
+      return WordModel.query().select(selection).where({ student_id: user.userId }).orderBy('id');
+    }
+    throw forbidden();
   }
 
   async create(user, data) {
-    if (![roles.teacher, roles.student, roles.admin].includes(user.type)) throw forbidden();
+    if (![roles.teacher, roles.student].includes(user.type)) throw forbidden();
     let teacherId;
     let studentId = null;
 
     if (user.type === roles.teacher) {
       teacherId = user.userId;
       studentId = optionalId(data.student_id, 'student_id');
+      if (studentId === null) throw badRequest('Для создания слова укажите student_id');
     } else if (user.type === roles.admin) {
       teacherId = optionalId(data.teacher_id, 'teacher_id');
       studentId = optionalId(data.student_id, 'student_id');
@@ -72,6 +74,7 @@ class WordsService {
   }
 
   async update(user, id, data) {
+    if (user.type === roles.admin) throw forbidden();
     const word = await WordModel.query().findById(id);
     if (!word) throw notFound('Слово не найдено');
     this.assertCanManage(user, word);
@@ -80,6 +83,7 @@ class WordsService {
     if (Object.hasOwn(data, 'student_id')) {
       if (user.type === roles.student) throw forbidden();
       const studentId = optionalId(data.student_id, 'student_id');
+      if (studentId === null) throw badRequest('Слово должно быть привязано к ученику');
       if (studentId !== null) await this.assertStudentAssigned(word.teacher_id, studentId);
       patch.student_id = studentId;
     }
@@ -88,6 +92,7 @@ class WordsService {
   }
 
   async remove(user, id) {
+    if (user.type === roles.admin) throw forbidden();
     const word = await WordModel.query().findById(id);
     if (!word) throw notFound('Слово не найдено');
     this.assertCanManage(user, word);
@@ -96,7 +101,6 @@ class WordsService {
   }
 
   assertCanManage(user, word) {
-    if (user.type === roles.admin) return;
     if (user.type === roles.teacher && word.teacher_id === user.userId) return;
     if (user.type === roles.student && word.student_id === user.userId) return;
     throw forbidden();

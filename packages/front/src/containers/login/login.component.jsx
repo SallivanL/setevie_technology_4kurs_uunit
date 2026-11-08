@@ -6,7 +6,7 @@ import { apiService } from '@/api/api.service.js';
 import { setUserData } from '@/store/index.js';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useUserType } from '@/containers/user/index.js';
+import { userTypes } from '@/domains/user/user.types.js';
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -15,15 +15,25 @@ export const Login = () => {
   const handleLogin = async ({ email_address: emailAddress, password }) => {
     const result = await apiService.post('/auth/login', { email_address: emailAddress, password });
     apiService.setAccessToken(result.access_token);
-    await dispatch(setUserData(result.user));
+    dispatch(setUserData(result.user));
 
-    // navigate('/list-lesson');
+    const startRouteByUserType = {
+      [userTypes.teacher]: '/select-student',
+      [userTypes.student]: '/list-lesson',
+      [userTypes.admin]: '/admin-page',
+    };
+    navigate(startRouteByUserType[result.user.type] ?? '/login', { replace: true });
   };
+
+  const initialValues = {
+    email_address: 't@yandex.ru',
+    password: '123123123',
+  }
 
   return (
     <LoginAtom>
       <LoginPaper>
-        <Form key="form-key" onSubmit={handleLogin}>
+        <Form initialValues={initialValues} key="form-key" onSubmit={handleLogin}>
           <Space.Y gap={4}>
             <Space.Y gap={3}>
               <Form.Input name="email_address" required type={'email'} label="E-mail" placeholder="email@yandex.ru" />

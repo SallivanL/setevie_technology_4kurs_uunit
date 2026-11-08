@@ -1,13 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import { wordsKeys } from '@/domains/shared/index.js';
 import { apiService } from '@/api/api.service.js';
-import { words } from '@/domains/words/words.mock-data.helper.js';
 
-export const useGetWords = () =>
+export const useGetWords = (studentId) =>
   useQuery({
-    queryKey: wordsKeys.words,
-    // queryFn: () => apiService.get('/words'),
-    queryFn: () => Promise.resolve(words),
+    queryKey: wordsKeys.words(studentId),
+    queryFn: () => apiService.get(`/words/${studentId}`),
+    enabled: studentId != null,
   });
 
 export const useGetWordTeachers = () =>

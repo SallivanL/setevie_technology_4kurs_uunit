@@ -10,6 +10,9 @@ export const userSlice = createSlice({
   initialState: initialUserState,
   reducers: {
     setUserData(state, { payload }) {
+      if (state.data?.id !== payload?.id) {
+        state.selectedStudentId = null;
+      }
       state.data = payload;
     },
     setSelectedStudentId(state, { payload }) {

@@ -1,0 +1,20 @@
+.select-student {
+    width: calc(50% - 4px);
+    margin: 8% auto 0;
+}
+
+.select-student__paper {
+    padding: 24px;
+    border-radius: 32px;
+}
+
+.select-student__form {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .select-student {
+        width: 100%;
+        margin-top: 24px;
+    }
+}

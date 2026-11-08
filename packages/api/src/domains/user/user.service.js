@@ -39,6 +39,37 @@ class UserService {
     }
   }
 
+  async createStudentForTeacher({ teacherId, email: emailInput, password: passwordInput }) {
+    const email = normalizeEmail(emailInput);
+    const password = validatePassword(passwordInput);
+    const passwordHash = await bcrypt.hash(password, 12);
+
+    try {
+      return await knex.transaction(async (trx) => {
+        const teacher = await UserModel.query(trx).findById(teacherId).forUpdate();
+        if (!teacher || teacher.type !== roles.teacher) throw forbidden();
+
+        if (teacher.tariff_id) {
+          const tariff = await TariffModel.query(trx).findById(teacher.tariff_id);
+          const count = await trx('teacher_students').where({ teacher_id: teacher.id }).count('* as count').first();
+          if (Number(count.count) >= tariff.student_count) throw conflict('Достигнут лимит учеников по тарифу');
+        }
+
+        const student = await UserModel.query(trx).insert({
+          email,
+          password_hash: passwordHash,
+          type: roles.student,
+          tariff_id: null,
+        });
+        await trx('teacher_students').insert({ teacher_id: teacher.id, student_id: student.id });
+        return publicUser(student);
+      });
+    } catch (error) {
+      if (error.code === '23505') throw conflict('Пользователь с таким email уже существует');
+      throw error;
+    }
+  }
+
   async assignStudent({ actor, teacherId, studentId }) {
     if (actor.type !== roles.admin && (actor.type !== roles.teacher || actor.userId !== Number(teacherId))) throw forbidden();
     const [teacher, student] = await Promise.all([UserModel.query().findById(teacherId), UserModel.query().findById(studentId)]);

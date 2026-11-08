@@ -5,4 +5,5 @@ export {
   useUserId,
   useUserState,
   useUserType,
+  useSelectedStudentId,
 } from './user.hooks.js';

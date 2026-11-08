@@ -30,7 +30,7 @@ export const LessonView = ({ lesson = [], lessonName }) => {
           {currentSection &&
             currentSection?.widgets.map((widget) => (
               <LessonViewWidgetWrapperAtom key={widget.id}>
-                <Typography>{widget.name}</Typography>
+                <Typography.Body2Stronger>{widget.name}</Typography.Body2Stronger>
                 <Typography>{widget.description}</Typography>
               </LessonViewWidgetWrapperAtom>
             ))}

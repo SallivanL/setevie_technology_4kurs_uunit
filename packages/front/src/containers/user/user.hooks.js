@@ -11,6 +11,7 @@ const userSelect = createSelector(
     data: userSelectors.getUserDataSelector(state),
     id: userSelectors.getUserIdSelector(state),
     type: userSelectors.getUserTypeSelector(state),
+    selectedStudentId: userSelectors.getSelectedStudentIdSelector(state),
   }),
 );
 
@@ -36,6 +37,10 @@ export function useUserData() {
 
 export function useUserType() {
   return useSelector(userSelectors.getUserTypeSelector);
+}
+
+export function useSelectedStudentId() {
+  return useSelector(userSelectors.getSelectedStudentIdSelector);
 }
 
 export function useUserId() {

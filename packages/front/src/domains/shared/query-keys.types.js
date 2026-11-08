@@ -4,8 +4,12 @@ export const lessonsKeys = {
 };
 
 export const wordsKeys = {
-  words: ['words'],
+  words: (studentId) => ['words', Number(studentId)],
   teachers: ['word-teachers'],
   students: ['word-students'],
   word: (id) => ['word', Number(id)],
+};
+
+export const usersKeys = {
+  students: ['users', 'students'],
 };
